@@ -1,4 +1,5 @@
 import java.io.File;
+import java.lang.Math.*;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Arrays;
@@ -25,10 +26,11 @@ public class Image
 		scan.useDelimiter(delim);
 		header = scan.next();
 	
-		if(header.equals("P3"))
-		{
+//		if(header.equals("P3"))
+//		{
 			width = scan.nextInt();
 			height = scan .nextInt();
+		
 			max = scan.nextInt();
 			pixels = new Pixel[height][width];
 			
@@ -43,24 +45,17 @@ public class Image
 					pixels[i][j] = p;
 				}//end inner for loop
 			}//end outer for loop
-		}//end if statement
-		else
-		{
-			System.out.println("File does not begin with \"P3\"");
-		}
+//		}//end if statement
+//		else
+//		{
+//			System.out.println("File does not begin with \"P3\"");
+//		}
 		
 	}//end load function
 	
 	public void invert()
 	{
 //		System.out.println("entered invert method");
-		Image newImage = new Image();
-//		newImage.pixels = pixels;
-		
-//		System.out.println(header);
-//		System.out.print(width + " ");
-//		System.out.println(height);
-//		System.out.println(max);
 		
 		for(int i = 0; i < height; i++)
 		{
@@ -91,14 +86,6 @@ public class Image
 	{
 //		System.out.println("entered grayscale method");
 		
-		Image newImage = new Image();
-		newImage.pixels = pixels;
-		
-//		System.out.println(header);
-//		System.out.print(width + " ");
-//		System.out.println(height);
-//		System.out.println(max);
-		
 		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < width; j++)
@@ -125,9 +112,6 @@ public class Image
 	public void emboss()
 	{
 //		System.out.println("entered emboss function");
-		
-		Image newImage = new Image();
-		newImage.pixels = pixels;
 		
 		for(int i = height - 1; i >= 0 ; i--)
 		{
@@ -193,30 +177,38 @@ public class Image
 	public void blur(int val)
 	{
 		int blur = val;
-		
-		if(blur > 0)
+	
+		if(blur == 1)
+		{
+			
+		}
+		else
 		{
 			for(int i = 0; i < height; i++)
 			{
-				for(int j = 0; j < width; j++)
+				for(int j = 0; j < width; j++)				
 				{
-					int counter = 0;
-					int redTemp = 0;
-					int greenTemp = 0;
-					int blueTemp = 0;
+					int counter = 1;			
 					
-					for(int k = 0; k < blur; k++)
+					int redTemp = pixels[i][j].getRed();
+					int greenTemp = pixels[i][j].getGreen();
+					int blueTemp = pixels[i][j].getBlue();
+
+					for(int k = 1; k < blur; k++)
 					{
-						if(j+k >= width)
-						{
-							//Do nothing, out of bounds
+						if((j+k) < width)
+						{	
+							
+							counter++;						
+							redTemp += pixels[i][j+k].getRed();
+							greenTemp += pixels[i][j+k].getGreen();					
+							blueTemp += pixels[i][j+k].getBlue();
+
 						}
 						else
 						{
-							counter++;
-							redTemp += pixels[i][j+k].getRed();
-							greenTemp += pixels[i][j+k].getGreen();
-							blueTemp += pixels[i][j+k].getBlue();
+							//Do nothing, out of bounds
+							break;
 						}
 					}//end inner for loop
 					
@@ -226,11 +218,7 @@ public class Image
 					
 				}//end middle for loop
 			}//end outer for loop
-		}//end if(blur > 0)
-		else
-		{
-			System.out.println("blur value is not greater than 0");
-		}
+		}//end else
 	}//end blur function
 
 }//end class

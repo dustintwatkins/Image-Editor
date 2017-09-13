@@ -15,7 +15,28 @@ public class Editor {
 		
 		Image image = new Image();
 		image.load(file);
-		Image newImage = new Image();
+//		Image newImage = new Image();
+//		newImage.pixels = new Pixel[1][5];
+//		newImage.pixels[0][0].setRed(117);
+//		newImage.pixels[0][0].setGreen(64);
+//		newImage.pixels[0][0].setBlue(22);
+//		newImage.pixels[0][1].setRed(117);
+//		newImage.pixels[0][1].setGreen(62);
+//		newImage.pixels[0][1].setBlue(21);
+//		newImage.pixels[0][2].setRed(117);
+//		newImage.pixels[0][2].setGreen(62);
+//		newImage.pixels[0][2].setBlue(21);
+//		newImage.pixels[0][3].setRed(119);
+//		newImage.pixels[0][3].setGreen(61);
+//		newImage.pixels[0][3].setBlue(21);
+//		newImage.pixels[0][4].setRed(120);
+//		newImage.pixels[0][4].setGreen(61);
+//		newImage.pixels[0][4].setBlue(19);
+		
+//		
+//		System.out.println("red = " + newImage.pixels[0][0].getRed());
+//		newImage.blur(5);
+		
 		
 		if(transformation.equals("invert"))
 		{			
@@ -25,7 +46,7 @@ public class Editor {
 		{
 			image.grayscale();
 		}
-		else if(transformation.equals("blur"))
+		else if(transformation.equals("motionblur"))
 		{
 			String val = args[3];
 			int blur = Integer.parseInt(val);
@@ -33,10 +54,10 @@ public class Editor {
 			{	
 				image.blur(blur);
 			}
-//			else
-//			{
-//				System.out.println("Blur value must be greater than 0");
-//			}
+			else
+			{
+				System.out.println("Blur value must be greater than 0");
+			}
 		}
 		else if(transformation.equals("emboss"))
 		{
